@@ -3,8 +3,8 @@ import json
 
 leagueserver = "euw1.api.riotgames.com"
 requestpath = "/lol/summoner/v4/summoners/by-name/"
-summonername = "insert summonername here"
-APIkey = "insert API-Key here"
+summonername = "coonh"
+APIkey = "RGAPI-8159ff16-7b8f-47a8-bf8c-f1c0ae166648"
 
 class SummonerStats():
     def __init__(self, summonername, leagueserver, requestpath, APIkey):
@@ -29,16 +29,20 @@ class SummonerStats():
         return self.jsondata
 
     def getSummonerLvl(self):
-        if self.jsondata.get("status").get("status_code") != 404:
+        if self.jsondata.get("status").get("status_code") == 404:
             print("Summoner Level: " + str(self.jsondata.get("summonerLevel")))
+        elif self.jsondata.get("status").get("status_code") == 403:
+            print("API-Schlüssel ungültig")
         else:
-            print("Error")
+            print("Summoner Level: " + str(self.jsondata.get("summonerLevel")))
     
     def getSummonerName(self):
-        if self.jsondata.get("status").get("status_code") != 404:
+        if self.jsondata.get("status").get("status_code") == 404:
             print("Summoner Name: " + str(self.jsondata.get("name")))
+        elif self.jsondata.get("status").get("status_code") == 403:
+            print("API-Schlüssel ungültig")
         else:
-            print("Error")
+            print("Summoner Name: " + str(self.jsondata.get("name")))
 
 mySummoner = SummonerStats(summonername, leagueserver, requestpath, APIkey)
 mySummoner.getAPIResponse()
